@@ -1,0 +1,60 @@
+#
+# WARNING: To install Immich, follow our guide: https://immich.app/docs/install/docker-compose
+#
+# Make sure to use the docker-compose.yml of the current release:
+#
+# https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+#
+# The compose file on main may not be compatible with the latest release.
+
+# Do not just copy this over without appropriately configuring according to your local machine 
+
+name: immich
+
+services:
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    extends:
+      file: hwaccel.transcoding.yml
+      service: nvenc
+    volumes:
+      # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
+      - ${UPLOAD_LOCATION}:/usr/src/app/upload
+      # This is where you define External paths. 
+      - ${EXTERNAL_PATH}:/usr/src/app/external
+      # And if you want to add more, reference the variable you defined in env 
+      - ${EXTERNAL_PATH_2}:/usr/src/app/external
+      # Timezone
+      - /etc/localtime:/etc/localtime:ro
+
+    env_file:
+      - .env
+    # It's important you open port 3003 for facial detection and some other features to work consistently 
+    # Immich uses 3003 by default, but it isn't open by default 
+    ports:
+      - '2283:2283'
+      - '3003:3003'
+    depends_on:
+      - redis
+      - database
+    restart: always
+    healthcheck:
+      disable: false
+
+  # I have the below configured for Nvidia + Cuda. Choose your own adventure. 
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-cuda
+    extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
+      file: hwaccel.ml.yml
+      service: cuda
+    volumes:
+      - model-cache:/cache
+    env_file:
+      - .env
+    restart: always
+    healthcheck:
+      disable: false
