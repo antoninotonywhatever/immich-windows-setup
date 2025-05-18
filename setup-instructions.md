@@ -68,10 +68,12 @@ From here, you should be good to go! I'd recommend monitoring logs occasionally 
 
 
 
-Sources / What helped me along in configuration. Storing archives of these posts in `archive/` in case they go away. This repo is partially a reference for me to be able to debug / disentangle this in the future when immich inevitably changes and I need to make updates. 
+Sources / What helped me along in configuration. Storing archives of these posts in `archive/` in case they go away.
+This repo is partially a reference for me to be able to debug / disentangle this in the future when immich inevitably changes and I need to make updates. 
+
 - [Immich docker compose docs](https://immich.app/docs/install/docker-compose/), [Immich Hardware Transcoding Docs](https://immich.app/docs/features/hardware-transcoding/),[ Immich Hardware-accelerated Machine Learning Docs](https://immich.app/docs/features/ml-hardware-acceleration/)
-- [This Reddit Thread](https://www.reddit.com/r/immich/comments/1b5u6p2/comment/ktn7g2p/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
-  - General config stuff, includes additional troubleshooting
--[ This Reddit Thread](https://www.reddit.com/r/immich/comments/1i9un56/comment/m95fey1/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) for opening a given port to make ML features work consistently
+- [This Reddit Thread](https://www.reddit.com/r/immich/comments/1b5u6p2/comment/ktn7g2p/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) General config stuff, includes additional troubleshooting
+- [This Reddit Thread](https://www.reddit.com/r/immich/comments/1i9un56/comment/m95fey1/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+  - For opening a given port to make ML features work consistently
 - [This Blogpost](https://www.ephestione.it/immich-manually-download-machine-learning-ai-models/)
   - For troubleshooting ML/AI issues
